@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardFilmsController;
+use App\Http\Controllers\CastController;
 
 
 /*
@@ -33,14 +35,6 @@ Route::get('/about', function () {
     ]);
 });
 
-// Route::resource('films', FilmController::class);
-// Route::resource('casts', CastController::class);
-// Route::resource('movies.comments', CommentController::class);
-
-// Route::post('/films/{film:id}/cast_store')->name('film_cast_store');
-// Route::delete('/films/{film:id}/casts/{cast:id}')->name('film_destroy_store');
-
-// Route::get('/film', [FilmController::class, 'index']);
 
 Route::get('/film', function () {
     return view('film', [
@@ -56,11 +50,69 @@ Route::get('/categories', function () {
     ]);
 });
 
+
+Route::get('/dashboard', function() {
+    return view('dashboard.index');
+});
+
+// films
+
+
+Route::get('/dashboard/films', [DashboardFilmsController::class, 'index']);
+
+
+Route::get('/dashboard/films/show', function() {
+    return view('dashboard.films.show', [
+        "title" => "Movies",
+        "active" => 'Movies'
+    ]);
+});
+
+Route::get('/dashboard/films/create', function() {
+    return view('dashboard.films.create', [
+        "title" => "Movies",
+        "active" => 'Movies'
+    ]);
+});
+
+// casts
+Route::get('/dashboard/casts', function() {
+    return view('dashboard.casts.index', [
+        "title" => "Movies",
+        "active" => 'Movies'
+    ]);
+});
+
+Route::get('/dashboard/casts/show', function() {
+    return view('dashboard.casts.show', [
+        "title" => "Movies",
+        "active" => 'Movies'
+    ]);
+});
+
+// login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
+// register
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+// Route::resource('films', FilmController::class);
+// Route::resource('casts', CastController::class);
+// Route::resource('movies.comments', CommentController::class);
+
+// Route::post('/films/{film:id}/cast_store')->name('film_cast_store');
+// Route::delete('/films/{film:id}/casts/{cast:id}')->name('film_destroy_store');
+
+// Route::get('/film', [FilmController::class, 'index']);
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

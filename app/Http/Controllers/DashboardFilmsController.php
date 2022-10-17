@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Cast;
+use App\Models\Comment;
+use App\Models\Film;
 
-class CastController extends Controller
+class DashboardFilmsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +18,11 @@ class CastController extends Controller
      */
     public function index()
     {
-        //
+        $films = Film::get();
+        return view('dashboard.films.index', ['filmsList' => $films]);
+
+        // $films = Film::all();
+        // return view('dashboard.films.index');
     }
 
     /**
@@ -24,7 +32,7 @@ class CastController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.films.index');
     }
 
     /**
@@ -35,51 +43,52 @@ class CastController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cast  $cast
+     * @param  \App\Models\Films  $films
      * @return \Illuminate\Http\Response
      */
-    public function show(Cast $cast)
+    public function show(Films $films, $id)
     {
-        return view('dashboard.casts.show');
+        return view ('dashboard.films.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cast  $cast
+     * @param  \App\Models\Films  $films
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cast $cast)
+    public function edit(Films $films)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cast  $cast
+     * @param  \App\Models\Films  $films
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cast $cast)
+    public function update(Request $request, Films $films)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cast  $cast
+     * @param  \App\Models\Films  $films
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cast $cast)
+    public function destroy(Films $films)
     {
-        //
+
     }
+
 }
